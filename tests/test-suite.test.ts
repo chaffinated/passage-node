@@ -14,6 +14,7 @@ enum Status {
 
 const userID = process.env.EXAMPLE_USER_ID ? process.env.EXAMPLE_USER_ID : "";
 const appToken = process.env.APP_TOKEN ? process.env.APP_TOKEN : "";
+const testEmail = "dustin.chaffin@gmail.com";
 
 describe("Passage Initialization", () => {
   const config = {
@@ -58,8 +59,8 @@ describe("Passage Initialization", () => {
   });
 
   test("validAuthToken", async () => {
-    const userID = await passage.validAuthToken(appToken);
-    expect(userID).toBe("bEXIZKYyApgz5oWYc5WM9vfF");
+    const id = await passage.validAuthToken(appToken);
+    expect(id).toBe(userID);
   });
 
   test("invalidAuthToken", async () => {
@@ -77,11 +78,11 @@ describe("Passage API Requests", () => {
   describe("Passage", () => {
     test("createMagicLink", async () => {
       const magicLink = await passage.createMagicLink({
-        email: "chris@passage.id",
+        email: testEmail,
         channel: "email",
         ttl: 12,
       });
-      expect(magicLink).toHaveProperty("identifier", "chris@passage.id");
+      expect(magicLink).toHaveProperty("identifier", testEmail);
       expect(magicLink).toHaveProperty("ttl", 12);
     });
 
